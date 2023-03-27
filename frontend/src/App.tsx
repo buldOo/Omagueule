@@ -10,9 +10,19 @@ const App = () => {
   
   
   return (
-    <div className="App">
-      <p>Oh ma gueule</p>
-      <button onClick={sendMessage}>send message</button>
+    <div className="landing">
+      <div className="background"></div>
+      <div className="form-container">
+        <div className="form">
+          <form action="#">
+            <div>
+              <h2>Votre petit nom</h2>
+              <input type="text" name="name"/>
+            </div>
+            <button type="submit">Let's chat !</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

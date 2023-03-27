@@ -1,5 +1,52 @@
 @import '../scss/color.scss';
+@import '../scss/var.scss';
 
-p {
-    color: $green_primary;
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.landing {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    background-color: $green_primary;
+
+    .background {
+        height: 100%;
+        width: 100%;
+
+        background-image: url("../images/couvert-filles-couverture-assis-regardant-ecran-tablette.jpg"); 
+        background-size: cover;
+        background-position: center; 
+    }
+
+    .form-container {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $white_primary;
+
+        .form {
+            padding: 100px 150px;
+
+            border-radius: 5px;
+            background-color: $white_secondary;
+
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                gap: 20px;
+
+                h2 {
+                    font-size: max(calc(20 * var(--res)), 12px);;
+                }
+            }
+        }
+    }
 }
