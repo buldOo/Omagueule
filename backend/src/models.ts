@@ -1,16 +1,17 @@
-export interface IUser {
+export interface User {
   id: string
   name: string
   roomId: string
 }
 
-export interface IRoom {
+export interface Room {
   id: string
   name: string
   users: string[]
-  messages: IMessage[]
+  messages: Message[]
 }
 
-export interface IMessage {
+export interface Message {
+  userId: string,
   message: string
 }
