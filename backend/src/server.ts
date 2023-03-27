@@ -24,11 +24,10 @@ const io = new Server(server, {
 })
 
 io.on('connection', (socket) => {
-  console.log('a user connected', socket.id)
-  
-  socket.on('message', async (data: IMessage) => {
-    const text = data.message
-    console.log('message received:', text);
+  socket.on('join-room', (roomId: string, userId: string) => {
+    console.log('joining', roomId)
+    socket.join(roomId)
+    socket.to(roomId).emit('user-connected', userId)
   })
 })
 
