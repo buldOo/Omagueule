@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import Peer from 'peerjs';
 
-const socket = io('http://localhost:3000');
+const BACK_URL = 'http://localhost:3000';
+const socket = io(BACK_URL);
 
 const App = () => {
   const ROMM_ID = 'room-1679927673915';
@@ -10,19 +11,20 @@ const App = () => {
   const currentUserVideoRef = useRef<HTMLVideoElement>(null);
   const remoteUserVideoRef = useRef<HTMLVideoElement>(null);
 
-
   const peer = new Peer()
 
-  const connectToRemoteUser = (userId: string, stream: MediaStream) => {
-    const call = peer.call(userId, stream)
-    call.on('stream', remoteStream =>
-      remoteUserVideoRef.current!.srcObject = remoteStream
-    )
-  }
+  useEffect(() => {
+    peer.on('open', currentUserId => {
+      // join the room when the page loads
+      socket.emit('join-room', ROMM_ID, currentUserId)
+      console.log('current user', currentUserId)
+    })
+  }, [])
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then(stream => {
+        // display current user video
         currentUserVideoRef.current!.srcObject = stream
 
         peer.on('call', call => {
@@ -32,18 +34,15 @@ const App = () => {
           );
         })
 
-        socket.on('user-connected', (userId: string) => {
-          console.log('remote user id', userId);
-          connectToRemoteUser(userId, stream)
+        socket.on('user-connected', (remoteUserId: string) => {
+          console.log('remote user id', remoteUserId);
+          // connect to remote user
+          const call = peer.call(remoteUserId, stream)
+          call.on('stream', remoteStream =>
+            remoteUserVideoRef.current!.srcObject = remoteStream
+          )
         })
       })
-  }, [])
-
-  useEffect(() => {
-    peer.on('open', id => {
-      socket.emit('join-room', ROMM_ID, id)
-      console.log('current user', id)
-    })
   }, [])
 
   return (
