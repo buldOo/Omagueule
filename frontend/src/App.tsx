@@ -1,4 +1,6 @@
 import io from 'socket.io-client';
+import '../src/assets/scss/index.scss';
+
 const socket = io('http://localhost:3000');
 
 const App = () => {
