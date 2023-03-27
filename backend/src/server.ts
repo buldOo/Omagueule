@@ -26,10 +26,9 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('a user connected', socket.id)
   
-  socket.on('message', async (msg: IMessage) => {
-    const text = msg.text
-    console.log('message', text);
-    
+  socket.on('message', async (data: IMessage) => {
+    const text = data.message
+    console.log('message received:', text);
   })
 })
 

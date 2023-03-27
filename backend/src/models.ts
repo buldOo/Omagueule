@@ -12,5 +12,5 @@ export interface IRoom {
 }
 
 export interface IMessage {
-  text: string
+  message: string
 }
