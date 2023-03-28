@@ -31,7 +31,7 @@ function getUserById(room: Room, id: string): User | undefined {
 io.on('connection', (socket: Socket) => {
   console.log('A user connected');
 
-  socket.on('join room', ({ roomId, username }) => {
+  socket.on('join-room', ({ roomId, username }) => {
     console.log('A user joined room', roomId, username);
     
     socket.join(roomId);
@@ -48,7 +48,7 @@ io.on('connection', (socket: Socket) => {
     io.to(roomId).emit('user joined', { room, user });
   });
 
-  socket.on('leave room', ({ roomId }) => {
+  socket.on('leave-room', ({ roomId }) => {
     const room = getRoomById(roomId);
     if (room) {
       const user = getUserById(room, socket.id);
@@ -61,12 +61,12 @@ io.on('connection', (socket: Socket) => {
     socket.leave(roomId);
   });
 
-  socket.on('get rooms', () => {
+  socket.on('get-rooms', () => {
     socket.emit('rooms', rooms);
     console.log('rooms', rooms);
   });
 
-  socket.on('get room users', ({ roomId }) => {
+  socket.on('get-room-users', ({ roomId }) => {
     const room = getRoomById(roomId);
     if (room) {
       socket.emit('room users', room.users);
@@ -74,13 +74,25 @@ io.on('connection', (socket: Socket) => {
     }
   });
 
-  socket.on('chat message', ({ roomId, message }) => {
+  socket.on('get-room-messages', ({ roomId }) => {
+    const room = getRoomById(roomId);
+    if (room) {
+      socket.emit('room messages', room.messages);
+    // loop through the messages and log them by property
+      room.messages.forEach(message => {
+        console.log(`message.user: ${message.user}, message.message: ${message.message}`);
+      } );
+    }
+  });
+
+  socket.on('message', ({ roomId, message }) => {
     const room = getRoomById(roomId);
     if (room) {
       const user = getUserById(room, socket.id);
       if (user) {
         const chatMessage = { user: user.name, message };
         room.messages.push(chatMessage);
+        console.log(message);
         io.to(roomId).emit('chat message', { room, message: chatMessage });
       }
     }
