@@ -45,9 +45,11 @@
         width: 100%;
         height: 100%;
 
-        background-image: url("../images/couvert-filles-couverture-assis-regardant-ecran-tablette.jpg"); 
-        background-size: cover;
-        background-position: center; 
+        background-color: #0a2540;
+
+        div {
+            margin-left: var(--res);
+        }
     }
 
     .form-container {
