@@ -1,14 +1,15 @@
 export interface IUser {
   id: string
   name: string
-  roomId: string
 }
 
 export interface IRoom {
   id: string
-  users: string[]
+  users: IUser[]
+  messages: IMessage[]
 }
 
 export interface IMessage {
-  message: string
+  userId: string,
+  body: string
 }
