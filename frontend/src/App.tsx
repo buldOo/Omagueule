@@ -44,50 +44,32 @@ const App = () => {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <Home />
-
-
-//    <div className="landing">
-//      <div className="curtain">
-//        <img src="../src/assets/images/Ohmesgueul.png" alt=""/>
-//      </div>
-//      <div className="background"></div>
-//      <div className="form-container">
-//        <div className="form">
-//          <form action="#">
-//            <h2>Votre petit nom</h2>
-//            <div className="login_button">
-//              <input type="text" name="name" placeholder='Jean luc'/>
-//              <button type="submit">
-//                <img src="../src/assets/images/Send.png" alt=""/>
-//              </button>
-//            </div>
-//          </form>
-//        </div>
-//      </div>
-//    </div>
-=======
     <div className="landing">
       <div className="curtain">
-        <img src="../src/assets/images/Ohmesgueul.png" alt=""/>
+        <img src="../src/assets/images/Ohmesgueul.png" alt="Logo"/>
       </div>
       <div className="background" ref={ref}></div>
       <div className="form-container">
+        <img className="meteorOne" src="../src/assets/images/meteor.gif" alt="meteor"/>
+        <img className="meteorTwo" src="../src/assets/images/meteor.gif" alt="meteor"/>
+        <img className="meteorTree" src="../src/assets/images/meteor.gif" alt="meteor"/>
+        <div className="title">
+          <img src="../src/assets/images/Ohmesgueul2.png" alt="Logo" />
+          <h1>Omesgueules !</h1>
+        </div>
         <div className="form">
           <form action="#">
             <h2>Votre petit nom</h2>
             <div className="login_button">
               <input type="text" name="name" placeholder='Jean luc'/>
               <button type="submit">
-                <img src="../src/assets/images/Send.png" alt=""/>
+                <img src="../src/assets/images/Send.png" alt="Send icons"/>
               </button>
             </div>
           </form>
         </div>
       </div>
     </div>
->>>>>>> 553e5508ed010cee4a117538f84aeff790e6da4c
   );
 };
 
