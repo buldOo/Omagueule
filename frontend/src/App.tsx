@@ -3,11 +3,11 @@ import io from 'socket.io-client';
 import Peer from 'peerjs';
 
 const BACK_URL = 'http://localhost:3000';
+// const BACK_URL = '10.57.29.242:3000';
+
 const socket = io(BACK_URL);
 
 const App = () => {
-  const ROMM_ID = 'room-1679927673915';
-
   const currentUserVideoRef = useRef<HTMLVideoElement>(null);
   const remoteUserVideoRef = useRef<HTMLVideoElement>(null);
 
@@ -16,7 +16,7 @@ const App = () => {
   useEffect(() => {
     peer.on('open', currentUserId => {
       // join the room when the page loads
-      socket.emit('join-room', ROMM_ID, currentUserId)
+      socket.emit('join-room', currentUserId)
       console.log('current user', currentUserId)
     })
   }, [])
@@ -44,6 +44,14 @@ const App = () => {
         })
       })
   }, [])
+
+  socket.on('no-room-available', (userId: string) => {
+    console.log('no room available for user', userId)
+  })
+
+  socket.on('user-disconnected', (userId: string) => {
+    console.log('user disconnected', userId)
+  })
 
   return (
     <div className="App" style={{ display: 'flex' }}>
