@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import '../src/assets/scss/index.scss';
+import Home from './pages/home';
 
 const socket = io('http://localhost:3000');
 
@@ -11,8 +12,7 @@ const App = () => {
   
   return (
     <div className="App">
-      <p>Oh ma gueule</p>
-      <button onClick={sendMessage}>send message</button>
+      <Home />
     </div>
   );
 };
