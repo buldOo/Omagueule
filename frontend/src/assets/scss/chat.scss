@@ -1,0 +1,40 @@
+@import '../scss/color.scss';
+
+.Chat{
+    display: flex;
+    flex-direction: column;
+
+    .Message{
+        .List-message{
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: column;
+            gap: 1em;
+            height: 80vh;
+            overflow-y: scroll;
+
+            .message{
+                color: $white_primary;
+            }
+        }
+        .send-message{
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            gap: 1em;
+
+            .input-send{
+                border-radius: 10px;
+
+            }
+            .btn-send{
+                border-radius: 10px;
+                background-color: $black_primary;
+                color: $white_primary;
+            }
+        }
+
+
+    }
+
+}

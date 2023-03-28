@@ -1,3 +1,6 @@
 html {
-    --res: calc(0.01 * 10vmin); 
+    //--res: calc(0.01 * 10vmin); 
+    --width: 100vw;
+    --factor: 0.4;
+    --res: calc(-0.08 * 100vw);
 }
