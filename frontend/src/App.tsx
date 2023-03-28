@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import Peer from 'peerjs';
+import { IMessage, IUser } from './models';
 
 const BACK_URL = 'http://localhost:3000';
 // const BACK_URL = '10.57.29.242:3000';
@@ -11,13 +12,27 @@ const App = () => {
   const currentUserVideoRef = useRef<HTMLVideoElement>(null);
   const remoteUserVideoRef = useRef<HTMLVideoElement>(null);
 
+  const [currentUser, setCurrentUser] = useState<IUser>()
+  const [remoteUser, setRemoteUser] = useState<IUser>()
+
+  const [messages, setMessages] = useState<IMessage[]>([])
+  const [typingMessage, setTypingMessage] = useState('')
+
   const peer = new Peer()
 
   useEffect(() => {
     peer.on('open', currentUserId => {
+      const newUser: IUser = {
+        id: currentUserId,
+        name: 'user 1',
+      }
       // join the room when the page loads
-      socket.emit('join-room', currentUserId)
+      socket.emit('join-room', newUser)
+      setCurrentUser(newUser)
       console.log('current user', currentUserId)
+
+      // get room messages
+      socket.emit('get-room-messages', currentUserId);
     })
   }, [])
 
@@ -36,6 +51,7 @@ const App = () => {
 
         socket.on('user-connected', (remoteUserId: string) => {
           console.log('remote user id', remoteUserId);
+          setRemoteUser(remoteUser)
           // connect to remote user
           const call = peer.call(remoteUserId, stream)
           call.on('stream', remoteStream =>
@@ -45,29 +61,8 @@ const App = () => {
       })
   }, [])
 
-  const user1JoinRoom1 = () => {
-    socket.emit('join-room', { roomId: 'room1', username: 'name1' });
-  }
-
-  const user2joinRoom1 = () => {
-    socket.emit('join-room', { roomId: 'room1', username: 'name2' });
-  }
-
-  const getRooms = () => {
-    socket.emit('get-rooms');
-  }
-
-  const getRoomUsers = () => {
-    socket.emit('get-room-users', { roomId: 'room1' });
-  }
-
-  const sendMessage = () => {
-    socket.emit('message', { roomId: 'room1', message: 'Hello' });
-  }
-
-  const getRoomMessages = () => {
-    socket.emit('get-room-messages', { roomId: 'room1' });
-  }
+  socket.on('room-messages', (messages: IMessage[]) => setMessages(messages))
+  socket.on('chat-message', (messages: IMessage[]) => setMessages(messages))
 
   socket.on('no-room-available', (userId: string) => {
     console.log('no room available for user', userId)
@@ -76,6 +71,17 @@ const App = () => {
   socket.on('user-disconnected', (userId: string) => {
     console.log('user disconnected', userId)
   })
+
+  const sendMessage = () => {
+    const message: IMessage = {
+      user: {
+        id: currentUser?.id ?? '',
+        name: currentUser?.name ?? '',
+      },
+      body: typingMessage,
+    }
+    socket.emit('message', message);
+  }
 
   return (
     <div className="App" style={{ display: 'flex' }}>
@@ -88,15 +94,20 @@ const App = () => {
         <video autoPlay={true} ref={remoteUserVideoRef} muted style={{ width: '60%' }} />
       </div>
 
-
-
-      <p>Oh ma gueule</p>
-      <button onClick={user1JoinRoom1}>join room</button>
-      <button onClick={user2joinRoom1}>join room</button>
-      <button onClick={getRooms}>get rooms</button>
-      <button onClick={getRoomUsers}>get room users</button>
-      <button onClick={sendMessage}>send message</button>
-      <button onClick={getRoomMessages}>get room messages</button>
+      <div>
+        <div>
+          <input type="text" value={typingMessage} onChange={e => setTypingMessage(e.target.value)} />
+          <button onClick={sendMessage}>Send</button>
+        </div>
+        <div>
+          {messages.map((message, index) => (
+            <div key={index}>
+              <p>{message.user.name} :</p>
+              <p>{message.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

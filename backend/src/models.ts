@@ -10,6 +10,6 @@ export interface IRoom {
 }
 
 export interface IMessage {
-  userId: string,
+  user: IUser,
   body: string
 }
