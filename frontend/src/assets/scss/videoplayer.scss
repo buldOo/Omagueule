@@ -1,0 +1,23 @@
+@import '../scss/color.scss';
+
+
+.videoPlayer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    gap: 1em;
+    width: 50vw;
+
+    .video-other{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        gap: 1em;
+        height: 30vh;
+    }
+
+    .self-video{
+
+    }
+}

@@ -1,0 +1,13 @@
+@import '../scss/color.scss';
+
+.loading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    .loading-icon{
+        font-size: 40px;
+        color: $black_primary;
+    }
+}
