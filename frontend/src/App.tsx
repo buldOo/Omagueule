@@ -11,24 +11,24 @@ const App = () => {
   
   
   return (
-<<<<<<< HEAD
-    <div className="App">
-      <Home />
-=======
     <div className="landing">
+      <div className="curtain">
+        <img src="../src/assets/images/Ohmesgueul.png" alt=""/>
+      </div>
       <div className="background"></div>
       <div className="form-container">
         <div className="form">
           <form action="#">
-            <div>
-              <h2>Votre petit nom</h2>
-              <input type="text" name="name"/>
+            <h2>Votre petit nom</h2>
+            <div className="login_button">
+              <input type="text" name="name" placeholder='Jean luc'/>
+              <button type="submit">
+                <img src="../src/assets/images/Send.png" alt=""/>
+              </button>
             </div>
-            <button type="submit">Let's chat !</button>
           </form>
         </div>
       </div>
->>>>>>> fdb46c90f4d077bb1df9df971010d6874266296d
     </div>
   );
 };
