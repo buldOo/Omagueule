@@ -1,15 +1,11 @@
-import React, { useEffect } from "react";
-import io from 'socket.io-client';
+import React, { useEffect, useRef, useState } from "react";
 import '../src/assets/scss/index.scss';
 import Home from './pages/home';
 import Globe from 'globe.gl';
 
-const socket = io('http://localhost:3000');
 
 const App = () => {
-  const sendMessage = () => {
-    socket.emit('message', { message: 'Hello' });
-  }
+  
 
   const ref = React.useRef(null);
   useEffect(() => {
@@ -74,5 +70,33 @@ const App = () => {
     // </div>
   );
 };
+
+// return (
+//   <div className="App" style={{ display: 'flex' }}>
+//     <div>
+//       <p>moi</p>
+//       <video autoPlay={true} ref={currentUserVideoRef} muted style={{ width: '60%' }} />
+//     </div>
+//     <div>
+//       <p>lui</p>
+//       <video autoPlay={true} ref={remoteUserVideoRef} muted style={{ width: '60%' }} />
+//     </div>
+
+//     <div>
+//       <div>
+//         <input type="text" value={typingMessage} onChange={e => setTypingMessage(e.target.value)} />
+//         <button onClick={sendMessage}>Send</button>
+//       </div>
+//       <div>
+//         {messages.map((message, index) => (
+//           <div key={index}>
+//             <p>{message.user.name} :</p>
+//             <p>{message.body}</p>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   </div>
+
 
 export default App;
