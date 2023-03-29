@@ -18,14 +18,19 @@ function VideoPlayer() {
   }
 
   return <div className="videoPlayer">
-    
+
+      
+      <div className="head">
+        <h1>Chat Video</h1>
+        <button className="btn-change">Changer de Gueule</button>
+      </div>
       <div className="video-other">
-        <video className="video" src="https://www.w3schools.com/html/mov_bbb.mp4" controls></video>
-        <video className="video" src="https://www.w3schools.com/html/mov_bbb.mp4" controls></video>
+        <video width="400" height="200" className="video" src="https://www.w3schools.com/html/mov_bbb.mp4" controls></video>
+        <video width="400" height="200"className="video" src="https://www.w3schools.com/html/mov_bbb.mp4" controls></video>
       </div>
 
       <div className="self-video">
-        <video className="video" src="https://www.w3schools.com/html/mov_bbb.mp4" controls></video>
+        <video width="800" height="300" className="video" src="https://www.w3schools.com/html/mov_bbb.mp4" controls></video>
 
       </div>
     </div>;

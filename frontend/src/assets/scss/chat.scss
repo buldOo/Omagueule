@@ -3,6 +3,7 @@
 .Chat{
     display: flex;
     flex-direction: column;
+    justify-content: center;
 
     .Message{
         .List-message{
@@ -10,8 +11,10 @@
             justify-content: flex-end;
             flex-direction: column;
             gap: 1em;
-            height: 80vh;
+            height: 65vh;
             overflow-y: scroll;
+            padding: 1em;
+            font-size: 5em;
 
             .message{
                 color: $white_primary;
@@ -24,10 +27,13 @@
             gap: 1em;
 
             .input-send{
+                border: solid 1px #ccc;
                 border-radius: 10px;
-
+                width: 10vw;
             }
             .btn-send{
+                border: none;
+                width: 10vw;
                 border-radius: 10px;
                 background-color: $black_primary;
                 color: $white_primary;

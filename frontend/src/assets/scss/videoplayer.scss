@@ -7,14 +7,33 @@
     justify-content: center;
     height: 100vh;
     gap: 1em;
-    width: 40vw;
+    width: 70vw;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-right: solid 1px #ccc;
+
+    .head{
+        display: flex;
+        justify-content:center;
+        flex-direction: row;
+        gap: 3em;
+
+        .btn-change{
+
+        }
+    }
 
     .video-other{
         display: flex;
         justify-content: center;
         flex-direction: row;
         gap: 1em;
-        height: 40vh;
+        width: 100%;
+
+        .video{
+            border-radius: 5px;
+        }
+
     }
 
     .self-video{

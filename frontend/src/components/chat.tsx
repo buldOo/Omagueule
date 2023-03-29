@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Loading from './loading';
-import { IMessage, IUser } from '../models';
 import { LoadingOutlined, SmileOutlined }  from '@ant-design/icons';
 import { message } from 'antd';
 import '../assets/scss/chat.scss'
@@ -23,6 +22,7 @@ function Chat() {
 
   return <div className="Chat">
         <div className="Message">
+            <h1>Message</h1>
 
             <div className="List-message">
                 <div className="message">
