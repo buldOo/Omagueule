@@ -1,42 +1,76 @@
 @import '../scss/color.scss';
 
-.Chat{
+.ChatMessage{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 40vw;
+    height: 100vh;
+    // border-top-left-radius: 10px;
+    // border-bottom-left-radius: 10px;
+    box-shadow:  0 0 5px 0 rgba(0, 0, 0, 0.2);
+
 
     .Message{
+        margin: 1em;
+
         .List-message{
             display: flex;
             justify-content: flex-end;
             flex-direction: column;
-            gap: 1em;
-            height: 65vh;
+            width: 100%;
+            gap: 0.2em;
             overflow-y: scroll;
-            padding: 1em;
             font-size: 5em;
+            height: 85vh;
+
 
             .message{
-                color: $white_primary;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                width: 100%;
+                align-self: start;
+                font-size: 16px;
+                color: $black_primary;
+                padding: 1em;
+
+                .user1{
+                    text-align: start;
+                }
+                .user2{
+                    text-align: end;
+                }
+
             }
         }
         .send-message{
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
             flex-direction: row;
-            gap: 1em;
+            padding: 0.2em;
 
             .input-send{
                 border: solid 1px #ccc;
-                border-radius: 10px;
-                width: 10vw;
+                border-radius: 20px;
+                width: 70%;
+                padding: 0.5em;
             }
             .btn-send{
+                width: 30%;
                 border: none;
-                width: 10vw;
-                border-radius: 10px;
-                background-color: $black_primary;
+                background-color: $green_primary;
                 color: $white_primary;
+                border-radius: 30px;
+                padding: 0.5em;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+            }
+            :hover{
+                background-color: $white_secondary;
+                color: $green_primary;
+                transition: all 0.3s ease-in-out;
+                transform: scale(1.02);
             }
         }
 

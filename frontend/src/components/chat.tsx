@@ -20,13 +20,14 @@ function Chat() {
   }
 
 
-  return <div className="Chat">
+  return <div className="ChatMessage">
         <div className="Message">
             <h1>Message</h1>
 
             <div className="List-message">
                 <div className="message">
-                    <p>Salut</p>
+                    <p className="user1">Salut user 1</p>
+                    <p className="user2">Salut user 2 pd !</p>
                 </div>
                 <div className="send-message">
                     <input className="input-send" type="text" placeholder="Message" />

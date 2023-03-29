@@ -44,57 +44,34 @@ const App = () => {
   }, []);
 
   return (
-<<<<<<< HEAD
+
     <Home />
-
-
-//    <div className="landing">
-//      <div className="curtain">
-//        <img src="../src/assets/images/Ohmesgueul.png" alt=""/>
-//      </div>
-//      <div className="background"></div>
-//      <div className="form-container">
-//        <div className="form">
-//          <form action="#">
-//            <h2>Votre petit nom</h2>
-//            <div className="login_button">
-//              <input type="text" name="name" placeholder='Jean luc'/>
-//              <button type="submit">
-//                <img src="../src/assets/images/Send.png" alt=""/>
-//              </button>
-//            </div>
-//          </form>
-//        </div>
-//      </div>
-//    </div>
-=======
-    <div className="landing">
-      <div className="curtain">
-        <img src="../src/assets/images/Ohmesgueul.png" alt="Logo"/>
-      </div>
-      <div className="background" ref={ref}></div>
-      <div className="form-container">
-        <img className="meteorOne" src="../src/assets/images/meteor.gif" alt="meteor"/>
-        <img className="meteorTwo" src="../src/assets/images/meteor.gif" alt="meteor"/>
-        <img className="meteorTree" src="../src/assets/images/meteor.gif" alt="meteor"/>
-        <div className="title">
-          <img src="../src/assets/images/Ohmesgueul2.png" alt="Logo" />
-          <h1>Omesgueules !</h1>
-        </div>
-        <div className="form">
-          <form action="#">
-            <h2>Votre petit nom</h2>
-            <div className="login_button">
-              <input type="text" name="name" placeholder='Jean luc'/>
-              <button type="submit">
-                <img src="../src/assets/images/Send.png" alt="Send icons"/>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
->>>>>>> da26feea54d444b20986a8aa2417c35b01381250
+    // <div className="landing">
+    //   <div className="curtain">
+    //     <img src="../src/assets/images/Ohmesgueul.png" alt="Logo"/>
+    //   </div>
+    //   <div className="background" ref={ref}></div>
+    //   <div className="form-container">
+    //     <img className="meteorOne" src="../src/assets/images/meteor.gif" alt="meteor"/>
+    //     <img className="meteorTwo" src="../src/assets/images/meteor.gif" alt="meteor"/>
+    //     <img className="meteorTree" src="../src/assets/images/meteor.gif" alt="meteor"/>
+    //     <div className="title">
+    //       <img src="../src/assets/images/Ohmesgueul2.png" alt="Logo" />
+    //       <h1>Omesgueules !</h1>
+    //     </div>
+    //     <div className="form">
+    //       <form action="#">
+    //         <h2>Votre petit nom</h2>
+    //         <div className="login_button">
+    //           <input type="text" name="name" placeholder='Jean luc'/>
+    //           <button type="submit">
+    //             <img src="../src/assets/images/Send.png" alt="Send icons"/>
+    //           </button>
+    //         </div>
+    //       </form>
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 

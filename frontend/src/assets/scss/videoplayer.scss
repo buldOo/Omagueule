@@ -1,5 +1,10 @@
 @import '../scss/color.scss';
 
+@mixin play-video{
+    border-radius: 5px;
+    width: 550px;
+}
+
 
 .videoPlayer{
     display: flex;
@@ -10,33 +15,44 @@
     width: 70vw;
     padding-left: 1em;
     padding-right: 1em;
-    border-right: solid 1px #ccc;
 
     .head{
         display: flex;
         justify-content:center;
         flex-direction: row;
+        align-items: center;
         gap: 3em;
-
-        .btn-change{
-
-        }
     }
 
-    .video-other{
+    .video-group{
         display: flex;
         justify-content: center;
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center;
         gap: 1em;
-        width: 100%;
-
         .video{
-            border-radius: 5px;
+            @include play-video;
         }
-
     }
 
-    .self-video{
-
+    .find-user{
+        align-items: center;
+        .btn-change{
+            border: none;
+            background-color: $green_primary;
+            color: $white_primary;
+            border-radius: 30px;
+            padding: 0.5em;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        :hover{
+            background-color: $white_secondary;
+            color: $green_primary;
+            transition: all 0.3s ease-in-out;
+            transform: scale(1.10);
+        }
     }
+
+    
 }
