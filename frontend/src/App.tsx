@@ -13,7 +13,6 @@ const App = () => {
   const remoteUserVideoRef = useRef<HTMLVideoElement>(null);
 
   const [currentUser, setCurrentUser] = useState<IUser>()
-  const [remoteUser, setRemoteUser] = useState<IUser>()
 
   const [messages, setMessages] = useState<IMessage[]>([])
   const [typingMessage, setTypingMessage] = useState('')
@@ -51,7 +50,6 @@ const App = () => {
 
         socket.on('user-connected', (remoteUserId: string) => {
           console.log('remote user id', remoteUserId);
-          setRemoteUser(remoteUser)
           // connect to remote user
           const call = peer.call(remoteUserId, stream)
           call.on('stream', remoteStream =>
