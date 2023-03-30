@@ -63,6 +63,10 @@ function Home() {
           call.on('stream', remoteStream =>
             remoteUserVideoRef.current!.srcObject = remoteStream
           );
+          call.on('close', () => {
+            setRemoteUser(undefined)
+            remoteUserVideoRef.current!.srcObject = null
+          })
         })
 
         socket.on('user-connected', (remoteUser: IUser) => {
