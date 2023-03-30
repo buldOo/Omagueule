@@ -37,7 +37,7 @@ const joinRoom = (socket: Socket, user: IUser) => {
 
   console.log(`user ${user.id} joining room ${room.id}`)
   socket.join(room.id)
-  socket.to(room.id).emit('user-connected', user.id)
+  socket.to(room.id).emit('user-connected', user)
 
   socket.on('disconnect', () => disconnect(socket, room, user))
 }

@@ -9,7 +9,7 @@
 .videoPlayer{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 100vh;
     gap: 1em;
     width: 70vw;
@@ -30,9 +30,47 @@
         flex-direction: column;
         align-items: center;
         gap: 1em;
-        .video{
-            //@include play-video;
-            width: 40%;
+        .video-container {
+          position: relative;
+          aspect-ratio: 16/9;
+          width: 70%;
+          border-radius: 7px;
+          background-color: $white_secondary;
+          .video{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            object-fit: cover;
+          }
+          .hover-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.3);
+            border-radius: 7px;
+            transition: all 3s ease-in-out;
+            z-index: +1;
+            p {
+              position: absolute;
+              bottom: 20px;
+              left: 25px;
+              color: $white_primary;
+              font-size: 20px;
+            }
+          }
+          .helper-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            p{
+                color: rgba(120, 120, 120, 0.5);
+            }
+          }
         }
     }
 
@@ -43,7 +81,7 @@
             background-color: $green_primary;
             color: $white_primary;
             border-radius: 30px;
-            padding: 0.5em;
+            padding: 0.7em 1.2em;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
         }

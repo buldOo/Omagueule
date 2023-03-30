@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import SideBar from '../components/sidebar';
 import '../assets/scss/home.scss';
 import { IUser } from '../models';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Sidebar from '../components/sidebar';
 import VideoPlayer from '../components/videoPlayer';
 import Chat from '../components/chat';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const BACK_URL = 'http://localhost:3000';
 //const BACK_URL = '10.57.32.17:3000';
@@ -14,6 +14,8 @@ const socket = io(BACK_URL);
 
 function Home() {
   const [currentUser, setCurrentUser] = useState<IUser>()
+  const [remoteUser, setRemoteUser] = useState<IUser>()
+
   const currentUserVideoRef = useRef<HTMLVideoElement>(null);
   const remoteUserVideoRef = useRef<HTMLVideoElement>(null);
 
@@ -51,31 +53,39 @@ function Home() {
           );
         })
 
-        socket.on('user-connected', (remoteUserId: string) => {
-          console.log('remote user id', remoteUserId);
+        socket.on('user-connected', (remoteUser: IUser) => {
+          console.log('remote user id', remoteUser.id);
+          setRemoteUser(remoteUser)
           // connect to remote user
-          const call = peer.call(remoteUserId, stream)
-          call.on('stream', remoteStream => {
-            console.log('ouais ouais');
-
+          const call = peer.call(remoteUser.id, stream)
+          call.on('stream', remoteStream =>
             remoteUserVideoRef.current!.srcObject = remoteStream
-          }
           )
         })
       })
   }, [])
 
   socket.on('no-room-available', (userId: string) => console.log('no room available for user', userId))
-  socket.on('user-disconnected', (userId: string) => console.log('user disconnected', userId))
+
+  const currentUserData = {
+    videoRef: currentUserVideoRef,
+    user: currentUser,
+    helperText: 'En attente de votre flux vidéo...'
+  }
+  const remoteUserData = {
+    videoRef: remoteUserVideoRef,
+    user: remoteUser,
+    helperText: 'En attente d\'un autre utilisateur...'
+  }
 
   return (
     <div className="Home">
-      <SideBar />
+      <Sidebar />
       <div className="content">
         <VideoPlayer
+          remoteUserData={remoteUserData}
+          currentUserData={currentUserData}
           socket={socket}
-          remoteUserVideoRef={remoteUserVideoRef}
-          currentUserVideoRef={currentUserVideoRef}
         />
         <Chat socket={socket} currentUser={currentUser} />
       </div>

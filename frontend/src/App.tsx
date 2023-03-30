@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Onboarding from "./pages/onboarding";
 import Home from "./pages/home";
+import Onboarding from "./pages/onboarding";
 
 const App = () => {
   return (

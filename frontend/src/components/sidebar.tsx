@@ -1,8 +1,5 @@
-import React from 'react';
 import { WechatOutlined, SettingOutlined, TeamOutlined, LogoutOutlined } from '@ant-design/icons';
 import '../assets/scss/sidebar.scss'
-
-
 
 const Sidebar = () => {
   return (
@@ -25,9 +22,6 @@ const Sidebar = () => {
       <div className="logout">
         <LogoutOutlined className="icon-ant" />
       </div>
-
-
-
     </div>
   )
 };

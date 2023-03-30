@@ -1,15 +1,15 @@
-import React from 'react';
+import Video from './Video';
+import { IUserData } from '../models';
 import '../assets/scss/videoplayer.scss'
-import Peer from 'peerjs';
 import { Socket } from 'socket.io-client';
 
 interface IVideoPlayerProps {
   socket: Socket;
-  remoteUserVideoRef: React.RefObject<HTMLVideoElement>;
-  currentUserVideoRef: React.RefObject<HTMLVideoElement>;
+  currentUserData: IUserData;
+  remoteUserData: IUserData;
 }
 
-function VideoPlayer({ remoteUserVideoRef, currentUserVideoRef }: IVideoPlayerProps) {
+function VideoPlayer({ currentUserData, remoteUserData, socket }: IVideoPlayerProps) {
 
   return <div className="videoPlayer">
 
@@ -18,8 +18,15 @@ function VideoPlayer({ remoteUserVideoRef, currentUserVideoRef }: IVideoPlayerPr
     </div>
 
     <div className="video-group">
-      <video className="video" autoPlay={true} ref={currentUserVideoRef} muted />
-      <video className="video" autoPlay={true} ref={remoteUserVideoRef} muted />
+      <Video
+        userData={currentUserData}
+        socket={socket}
+
+      />
+      <Video
+        userData={remoteUserData}
+        socket={socket}
+      />
     </div>
 
     <div className="find-user">
