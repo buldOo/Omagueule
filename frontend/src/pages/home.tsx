@@ -1,18 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SideBar from '../components/sidebar';
-import { LoadingOutlined, SmileOutlined } from '@ant-design/icons';
 import '../assets/scss/home.scss';
-import { IMessage, IUser } from '../models';
+import { IUser } from '../models';
 import Peer from 'peerjs';
-import io, { Socket } from 'socket.io-client';
+import io from 'socket.io-client';
 import VideoPlayer from '../components/videoPlayer';
 import Chat from '../components/chat';
+import { useLocation } from 'react-router-dom';
 
 //const BACK_URL = 'http://localhost:3000';
 const BACK_URL = '10.57.32.17:3000';
 const socket = io(BACK_URL);
 
 function Home() {
+
+
 
   const [currentUser, setCurrentUser] = useState<IUser>()
 
@@ -21,11 +23,14 @@ function Home() {
 
   const peer = new Peer()
 
+  const location = useLocation()
+
+
   useEffect(() => {
     peer.on('open', (currentUserId: string) => {
       const newUser: IUser = {
         id: currentUserId,
-        name: 'user 1',
+        name: location.state.username,
       }
       // join the room when the page loads
       socket.emit('join-room', newUser)
