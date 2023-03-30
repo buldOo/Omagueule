@@ -7,41 +7,42 @@ import Globe from 'globe.gl';
 const App = () => {
   
 
-  const ref = React.useRef(null);
-  useEffect(() => {
+  // const ref = React.useRef(null);
+  // useEffect(() => {
 
-    // Gen random data
-    const N = 10;
-    const arcsData = [...Array(N).keys()].map(() => ({
-      startLat: (Math.random() - 0.5) * 180,
-      startLng: (Math.random() - 0.5) * 360,
-      endLat: (Math.random() - 0.5) * 180,
-      endLng: (Math.random() - 0.5) * 360,
-      color: [['#00a389', '#FFBD59', 'blue', '#F53131'][Math.round(Math.random() * 3)], ['#00a389', '#FFBD59', 'blue', '#F53131'][Math.round(Math.random() * 3)]]
-    }));
+  //   // Gen random data
+  //   const N = 10;
+  //   const arcsData = [...Array(N).keys()].map(() => ({
+  //     startLat: (Math.random() - 0.5) * 180,
+  //     startLng: (Math.random() - 0.5) * 360,
+  //     endLat: (Math.random() - 0.5) * 180,
+  //     endLng: (Math.random() - 0.5) * 360,
+  //     color: [['#00a389', '#FFBD59', 'blue', '#F53131'][Math.round(Math.random() * 3)], ['#00a389', '#FFBD59', 'blue', '#F53131'][Math.round(Math.random() * 3)]]
+  //   }));
 
-    fetch('../src/assets/images/country.geojson').then(res => res.json()).then(countries =>
-    {
-      const world = Globe()
-        .globeImageUrl('../src/assets/images/transparent.png')
-        .hexPolygonsData(countries.features)
-        .hexPolygonResolution(3)
-        .hexPolygonMargin(0.3)
-        .hexPolygonColor(() => `#00a389`)
-        .arcsData(arcsData)
-        .arcColor('color')
-        .arcDashLength(1)
-        .arcDashGap(2)
-        .arcDashAnimateTime(() => Math.random() * 4000 + 500)
-        .backgroundColor("#00000000")
-        .enablePointerInteraction(false)
-        (ref.current)
-    });
-  }, []);
+  //   fetch('../src/assets/images/country.geojson').then(res => res.json()).then(countries =>
+  //   {
+  //     const world = Globe()
+  //       .globeImageUrl('../src/assets/images/transparent.png')
+  //       .hexPolygonsData(countries.features)
+  //       .hexPolygonResolution(3)
+  //       .hexPolygonMargin(0.3)
+  //       .hexPolygonColor(() => `#00a389`)
+  //       .arcsData(arcsData)
+  //       .arcColor('color')
+  //       .arcDashLength(1)
+  //       .arcDashGap(2)
+  //       .arcDashAnimateTime(() => Math.random() * 4000 + 500)
+  //       .backgroundColor("#00000000")
+  //       .enablePointerInteraction(false)
+  //       (ref.current)
+  //   });
+  // }, []);
 
   return (
 
     <Home />
+
     // <div className="landing">
     //   <div className="curtain">
     //     <img src="../src/assets/images/Ohmesgueul.png" alt="Logo"/>
@@ -70,33 +71,6 @@ const App = () => {
     // </div>
   );
 };
-
-// return (
-//   <div className="App" style={{ display: 'flex' }}>
-//     <div>
-//       <p>moi</p>
-//       <video autoPlay={true} ref={currentUserVideoRef} muted style={{ width: '60%' }} />
-//     </div>
-//     <div>
-//       <p>lui</p>
-//       <video autoPlay={true} ref={remoteUserVideoRef} muted style={{ width: '60%' }} />
-//     </div>
-
-//     <div>
-//       <div>
-//         <input type="text" value={typingMessage} onChange={e => setTypingMessage(e.target.value)} />
-//         <button onClick={sendMessage}>Send</button>
-//       </div>
-//       <div>
-//         {messages.map((message, index) => (
-//           <div key={index}>
-//             <p>{message.user.name} :</p>
-//             <p>{message.body}</p>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   </div>
 
 
 export default App;

@@ -1,21 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { LoadingOutlined, SmileOutlined }  from '@ant-design/icons';
 import '../assets/scss/videoplayer.scss'
 import Loading from './loading';
+import { message } from 'antd';
+import Peer from 'peerjs';
+import { Socket } from 'socket.io-client';
 
 
-function VideoPlayer() {
-  const [isLoading, setIsLoading] = useState(true);
+interface IVideoPlayerProps {
+  socket: Socket;
+}
+
+
+function VideoPlayer( {socket}:IVideoPlayerProps ) {
+
+
+
+  const currentUserVideoRef = useRef<HTMLVideoElement>(null);
+  const remoteUserVideoRef = useRef<HTMLVideoElement>(null);
+  
+  const peer = new Peer()
+
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); // simulation d'un chargement de 3 secondes
-  }, []);
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(stream => {
+        // display current user video
+        currentUserVideoRef.current!.srcObject = stream
 
-  if (isLoading) {
-    return <Loading />;
-  }
+        peer.on('call', call => {
+          call.answer(stream)
+          call.on('stream', remoteStream =>
+            remoteUserVideoRef.current!.srcObject = remoteStream
+          );
+        })
+
+        socket.on('user-connected', (remoteUserId: string) => {
+          console.log('remote user id', remoteUserId);
+          // connect to remote user
+          const call = peer.call(remoteUserId, stream)
+          call.on('stream', remoteStream =>
+            remoteUserVideoRef.current!.srcObject = remoteStream
+          )
+        })
+      })
+  }, [])
 
   return <div className="videoPlayer">
 
@@ -25,8 +54,8 @@ function VideoPlayer() {
       </div>
       
       <div className="video-group">
-        <video className="video" src="https://www.w3schools.com/html/mov_bbb.mp4" controls></video>
-        <video  className="video" src="https://www.w3schools.com/html/mov_bbb.mp4" controls></video>
+        <video className="video" autoPlay={true} ref={currentUserVideoRef} muted />
+        <video className="video" autoPlay={true} ref={currentUserVideoRef} muted />
 
       </div>
 

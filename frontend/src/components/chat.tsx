@@ -3,20 +3,33 @@ import Loading from './loading';
 import { LoadingOutlined, SmileOutlined }  from '@ant-design/icons';
 import { message } from 'antd';
 import '../assets/scss/chat.scss'
+import { IUser, IMessage } from '../models';
+import { Socket } from 'socket.io-client';
+
+interface IChatProps {
+  socket: Socket;
+  currentUser?: IUser
+}
 
 
+function Chat({socket, currentUser}: IChatProps) {
+    const [typingMessage, setTypingMessage] = useState('');
+    const [messages, setMessages] = useState<IMessage[]>([])
 
-function Chat() {
-    const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); // simulation d'un chargement de 3 secondes
-  }, []);
+    socket.on('room-messages', (messages: IMessage[]) => setMessages(messages))
+    socket.on('chat-message', (messages: IMessage[]) => setMessages(messages))
+  
 
-  if (isLoading) {
-    return <Loading />;
+  const sendMessage = () => {
+    const message: IMessage = {
+      user: {
+        id: currentUser?.id ?? '',
+        name: currentUser?.name ?? '',
+      },
+      body: typingMessage,
+    }
+    socket.emit('message', message);
   }
 
 
@@ -25,20 +38,22 @@ function Chat() {
             <h1>Message</h1>
 
             <div className="List-message">
-                <div className="message">
-                    <p className="user1">Salut user 1</p>
-                    <p className="user2">Salut user 2 pd !</p>
-                </div>
+                {messages.map((message, index) => (
+                  <div className="message" key={index}>
+                    <p>{message.user.name} :</p>
+                    <p>{message.body}</p>
+                  </div>
+                ))}
                 <div className="send-message">
-                    <input className="input-send" type="text" placeholder="Message" />
-                    <button className="btn btn-send">Send</button>
-                </div>
-            
+                    <input className="input-send" type="text" value={typingMessage} onChange={e =>setTypingMessage(e.target.value)} placeholder="Message" />
+                    <button onClick={sendMessage} className="btn btn-send">Send</button>
+                </div>           
             </div>
     
       
         </div>
     </div>;
 }
+
 
 export default Chat;
