@@ -31,7 +31,8 @@
         align-items: center;
         gap: 1em;
         .video{
-            @include play-video;
+            //@include play-video;
+            width: 40%;
         }
     }
 

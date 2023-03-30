@@ -5,7 +5,7 @@ import Globe from 'globe.gl';
 
 
 const App = () => {
-  
+
 
   // const ref = React.useRef(null);
   // useEffect(() => {
