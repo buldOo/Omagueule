@@ -1,0 +1,97 @@
+@import '../scss/color.scss';
+
+.ChatMessage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40vw;
+    height: 100vh;
+    // border-top-left-radius: 10px;
+    // border-bottom-left-radius: 10px;
+    box-shadow:  0 0 5px 0 rgba(0, 0, 0, 0.2);
+
+
+    .Message{
+      .List-message-container {
+        overflow: scroll;
+        height: 85vh;
+      }
+        .List-message{
+          overflow: scroll;
+          display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 20px;
+            width: 100%;
+            font-size: 5em;
+            min-height: 85vh;
+            .message{
+                width: max-content;
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                align-self: start;
+                font-size: 16px;
+                color: $black_primary;
+                padding: 0.4em 0.7em;
+                margin: 0.2em 0;
+                &.left{
+                    text-align: start;
+                    background-color: $green_primary;
+                    color: $white_primary;
+                    border-radius: 7px 7px 7px 0;
+                }
+                &.right{
+                    text-align: end;
+                    margin-left: auto;
+                    align-self: flex-end;
+                    background-color: rgb(240, 240, 240);
+                    color: black;
+                    border-radius: 7px 7px 0 7px;
+                }
+            }
+        }
+        .send-message{
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            padding: 10px 15px;
+            .input-send{
+                border: solid 1px #ccc;
+                border-radius: 20px;
+                width: 66%;
+                padding: 0.6em 1em;
+                outline: none;
+            }
+            .btn-send{
+                width: 30%;
+                border: none;
+                background-color: $green_primary;
+                color: $white_primary;
+                border-radius: 30px;
+                padding: 0.5em;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+                &.disabled{
+                    background-color: $white_secondary;
+                    color: $green_primary;
+                    opacity: .5;
+                    cursor: default;
+                }
+            }
+            :hover{
+                background-color: $white_secondary;
+                color: $green_primary;
+                transition: all 0.3s ease-in-out;
+                transform: scale(1.02);
+            }
+        }
+        .no-message {
+          position: relative;
+          top: 50%;
+          opacity: .3;
+        }
+    }
+
+}

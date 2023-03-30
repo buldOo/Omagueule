@@ -1,12 +1,12 @@
-import { MAX_USERS_PER_ROOM, NUMBERS_OF_ROOMS } from "./constants";
+import { MAX_USERS_PER_ROOM } from "./constants";
 import { IMessage, IRoom, IUser } from "./models";
 
-export const createRooms = (): IRoom[] =>
-  Array.from({ length: NUMBERS_OF_ROOMS }, (_, i) => ({
-    id: `room-${i + 1}`,
-    users: [],
-    messages: []
-  }))
+export const createRoom = (): IRoom =>
+({
+  id: `${Date.now() + Math.random()}`,
+  users: [],
+  messages: []
+})
 
 export const getRoomForUser = (rooms: IRoom[]): IRoom | undefined =>
   rooms.find(room => room.users.length < MAX_USERS_PER_ROOM)
@@ -43,3 +43,6 @@ export const getUserRoom = (rooms: IRoom[], userId: string): IRoom | undefined =
 
 export const getUserById = (room: IRoom, id: string): IUser | undefined =>
   room.users.find(user => user.id === id)
+
+export const getRemoteUser = (room: IRoom, userId: string): IUser | undefined =>
+  room.users.find(user => user.id !== userId)

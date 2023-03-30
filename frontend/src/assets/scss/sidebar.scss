@@ -1,0 +1,56 @@
+@import '../scss/color.scss';
+
+@mixin item($color){
+    color: $color;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-left: auto;
+    padding-right: auto;
+    margin-bottom: 1em;
+   
+   .icon-ant{
+    font-size: 20px;
+    color: gray;
+    transition: all 0.3s ease-in-out;
+    }
+    :hover{
+        color: $green_primary;
+        font-size: 25px;
+        transition: all 0.3s ease-in-out; ;
+    }
+}
+
+.sidebar{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    align-items: center;
+    width: 80px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    gap: 2em;
+
+    .action{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 1em;
+
+        .item-side-bar{
+            @include item($black_primary);    
+        }
+    }
+
+    .logout{
+        @include item($black_primary);
+    }
+}
+

@@ -1,0 +1,97 @@
+@import '../scss/color.scss';
+
+@mixin play-video{
+    border-radius: 5px;
+    width: 550px;
+}
+
+
+.videoPlayer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100vh;
+    gap: 1em;
+    width: 70vw;
+    padding-left: 1em;
+    padding-right: 1em;
+
+    .head{
+        display: flex;
+        justify-content:center;
+        flex-direction: row;
+        align-items: center;
+        gap: 3em;
+    }
+
+    .video-group{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+        .video-container {
+          position: relative;
+          aspect-ratio: 16/9;
+          width: 60%;
+          border-radius: 7px;
+          background-color: $white_secondary;
+          .video{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            object-fit: cover;
+          }
+          .hover-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.3);
+            border-radius: 7px;
+            transition: all 3s ease-in-out;
+            z-index: +1;
+            p {
+              position: absolute;
+              bottom: 20px;
+              left: 25px;
+              color: $white_primary;
+              font-size: 20px;
+            }
+          }
+          .helper-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            p{
+                color: rgba(120, 120, 120, 0.5);
+            }
+          }
+        }
+    }
+
+    .find-user{
+        align-items: center;
+        .btn-change{
+            border: none;
+            background-color: $green_primary;
+            color: $white_primary;
+            border-radius: 30px;
+            padding: 0.7em 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        :hover{
+            background-color: $white_secondary;
+            color: $green_primary;
+            transition: all 0.3s ease-in-out;
+            transform: scale(1.10);
+        }
+    }
+
+    
+}
