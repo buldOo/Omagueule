@@ -11,6 +11,13 @@ interface IVideoPlayerProps {
 
 function VideoPlayer({ currentUserData, remoteUserData, socket }: IVideoPlayerProps) {
 
+  const handleClick = () => {
+    if (!currentUserData.user) return
+    socket.emit('change-room', currentUserData.user)
+  }
+
+  socket.on('user-disconnected', () => remoteUserData.videoRef.current!.srcObject = null)
+
   return <div className="videoPlayer">
 
     <div className="head">
@@ -21,7 +28,6 @@ function VideoPlayer({ currentUserData, remoteUserData, socket }: IVideoPlayerPr
       <Video
         userData={currentUserData}
         socket={socket}
-
       />
       <Video
         userData={remoteUserData}
@@ -30,7 +36,7 @@ function VideoPlayer({ currentUserData, remoteUserData, socket }: IVideoPlayerPr
     </div>
 
     <div className="find-user">
-      <button className="btn-change">Changer de Gueule</button>
+      <button className="btn-change" onClick={handleClick}>Changer de gueule</button>
     </div>
   </div>;
 }

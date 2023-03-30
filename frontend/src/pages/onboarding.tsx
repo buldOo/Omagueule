@@ -49,16 +49,13 @@ const Onboarding = () => {
       </div>
       <div className="background" ref={ref}></div>
       <div className="form-container">
-        <img className="meteorOne" src="../src/assets/images/meteor.gif" alt="meteor" />
-        <img className="meteorTwo" src="../src/assets/images/meteor.gif" alt="meteor" />
-        <img className="meteorTree" src="../src/assets/images/meteor.gif" alt="meteor" />
         <div className="title">
           <img src="../src/assets/images/Ohmesgueul2.png" alt="Logo" />
           <h1>Omesgueules !</h1>
         </div>
         <div className="form">
           <form action="#">
-            <h2>Votre petit nom</h2>
+            <h2>Votre nom</h2>
             <div className="login_button">
               <input type="text" name="name" placeholder='nom' value={username} onChange={e => setUsername(e.target.value)} />
               <button disabled={username === ''} onClick={handleCLick}>

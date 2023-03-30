@@ -1,7 +1,10 @@
 import { WechatOutlined, SettingOutlined, TeamOutlined, LogoutOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import '../assets/scss/sidebar.scss'
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="sidebar">
 
@@ -19,7 +22,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="logout">
+      <div className="logout" onClick={() => navigate('/onboarding')}>
         <LogoutOutlined className="icon-ant" />
       </div>
     </div>

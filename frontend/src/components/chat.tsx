@@ -21,6 +21,7 @@ function Chat({ socket, currentUser }: IChatProps) {
   }, [messages])
 
   socket.on('room-messages', (messages: IMessage[]) => setMessages(messages))
+  socket.on('new-room-messages', (messages: IMessage[]) => setMessages(messages))
   socket.on('chat-message', (messages: IMessage[]) => setMessages(messages))
 
   const sendMessage = () => {

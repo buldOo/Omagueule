@@ -1,15 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import '../assets/scss/home.scss';
-import { IUser } from '../models';
+import { IUser, IUserData } from '../models';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
 import VideoPlayer from '../components/videoPlayer';
 import Chat from '../components/chat';
+import { BACK_URL } from '../constants';
+import '../assets/scss/home.scss';
 
-const BACK_URL = 'http://localhost:3000';
-//const BACK_URL = '10.57.32.17:3000';
 const socket = io(BACK_URL);
 
 function Home() {
@@ -19,21 +18,34 @@ function Home() {
   const currentUserVideoRef = useRef<HTMLVideoElement>(null);
   const remoteUserVideoRef = useRef<HTMLVideoElement>(null);
 
+  const [currentUserData, setCurrentUserData] = useState<IUserData>({
+    videoRef: currentUserVideoRef,
+    user: currentUser,
+    helperText: 'En attente de votre flux vidéo...'
+  })
+  const [remoteUserData, setRemoteUserData] = useState<IUserData>({
+    videoRef: remoteUserVideoRef,
+    user: remoteUser,
+    helperText: 'En attente de la connexion d\'un autre utilisateur...'
+  })
+
   const peer = new Peer()
   const location = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
     if (!location.state) return navigate('/onboarding')
-    const username = location.state.username
+    const username: string = location.state.username
 
     peer.on('open', (currentUserId: string) => {
       const newUser: IUser = {
         id: currentUserId,
-        name: username || 'Anonymous',
+        name: username,
       }
       // join the room when the page loads
       socket.emit('join-room', newUser)
+      socket.emit('get-remote-user', currentUserId)
+
       setCurrentUser(newUser)
       console.log('current user', currentUserId)
 
@@ -65,18 +77,15 @@ function Home() {
       })
   }, [])
 
-  socket.on('no-room-available', (userId: string) => console.log('no room available for user', userId))
+  useEffect(() => {
+    // update users data when they change
+    setCurrentUserData({ ...currentUserData, user: currentUser })
+    setRemoteUserData({ ...remoteUserData, user: remoteUser })
+  }, [remoteUser, currentUser])
 
-  const currentUserData = {
-    videoRef: currentUserVideoRef,
-    user: currentUser,
-    helperText: 'En attente de votre flux vidéo...'
-  }
-  const remoteUserData = {
-    videoRef: remoteUserVideoRef,
-    user: remoteUser,
-    helperText: 'En attente d\'un autre utilisateur...'
-  }
+  socket.on('remote-user', (user: IUser) => setRemoteUser(user))
+  socket.on('user-disconnected', () => setRemoteUser(undefined))
+  socket.on('new-remote-user', (user: IUser) => setRemoteUser(user))
 
   return (
     <div className="Home">
