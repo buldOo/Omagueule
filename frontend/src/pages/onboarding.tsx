@@ -23,7 +23,7 @@ const Onboarding = () => {
     fetch('../src/assets/images/country.geojson')
       .then(res => res.json())
       .then(countries => {
-        const world = Globe()
+        Globe()
           .globeImageUrl('../src/assets/images/transparent.png')
           .hexPolygonsData(countries.features)
           .hexPolygonResolution(3)

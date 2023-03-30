@@ -6,31 +6,29 @@ import Peer from 'peerjs';
 import io from 'socket.io-client';
 import VideoPlayer from '../components/videoPlayer';
 import Chat from '../components/chat';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-//const BACK_URL = 'http://localhost:3000';
-const BACK_URL = '10.57.32.17:3000';
+const BACK_URL = 'http://localhost:3000';
+//const BACK_URL = '10.57.32.17:3000';
 const socket = io(BACK_URL);
 
 function Home() {
-
-
-
   const [currentUser, setCurrentUser] = useState<IUser>()
-
   const currentUserVideoRef = useRef<HTMLVideoElement>(null);
   const remoteUserVideoRef = useRef<HTMLVideoElement>(null);
 
   const peer = new Peer()
-
   const location = useLocation()
-
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (!location.state) return navigate('/onboarding')
+    const username = location.state.username
+
     peer.on('open', (currentUserId: string) => {
       const newUser: IUser = {
         id: currentUserId,
-        name: location.state.username,
+        name: username || 'Anonymous',
       }
       // join the room when the page loads
       socket.emit('join-room', newUser)
@@ -40,9 +38,7 @@ function Home() {
       // get room messages
       socket.emit('get-room-messages', currentUserId);
     })
-  }, [])
 
-  useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then(stream => {
         // display current user video
