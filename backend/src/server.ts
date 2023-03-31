@@ -90,7 +90,6 @@ const sendRemoteUser = (socket: Socket, userId: string) => {
   socket.emit('remote-user', user)
 }
 
-
 const changeRoom = (socket: Socket, user: IUser) => {
   // find a new room
   const previousRoom = getUserRoom(rooms, user.id)
